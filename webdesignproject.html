@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Social</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(90deg, #3b5998, #00aced);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #3b5998;
+            padding: 0.5rem 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: auto;
+        }
+        .create-post {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        textarea, input[type="file"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #3b5998;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #2e467b;
+        }
+        .post {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .post-header h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .post-body {
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+        .post-body img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .like-btn {
+            background: none;
+            border: none;
+            color: #3b5998;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .like-btn:hover {
+            background-color: #2e467b;
+			color: #fff;
+        }
+        .like-btn span {
+            margin-left: 0.5rem;
+        }
+        footer {
+            background: #3b5998;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tech Social</h1>
+        <p>Connect with others through tech and programming posts</p>
+    </header>
+    <nav>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('explore')">Explore</a>
+        <a href="#" onclick="showPage('profile')">Profile</a>
+        <a href="#" onclick="showPage('settings')">Settings</a>
+    </nav>
+    <main id="mainContent">
+        <div id="home" class="page">
+            <div class="create-post">
+                <h2>Create a New Post</h2>
+                <textarea id="postContent" rows="4" placeholder="What's on your mind?"></textarea>
+                <input type="file" id="postImage" accept="image/*">
+                <button onclick="addPost()">Post</button>
+            </div>
+            <div id="postsContainer"></div>
+        </div>
+        <div id="explore" class="page" style="display: none;">
+            <h2>Explore</h2>
+            <div class="post">
+                <div class="post-header">
+                    <h2>John Doe</h2>
+                    <span>2 hours ago</span>
+                </div>
+                <div class="post-body">
+                    <p>Excited to share my latest blog post on JavaScript frameworks! 🚀</p>
+                    <img src="https://ares.decipherzone.com/blog-manager/uploads/banner_webp_6ca4ca77-aac1-490e-ab9f-aa1b9377180b.webp" alt="Sample Post Image">
+                </div>
+                <div class="post-footer">
+                    <button class="like-btn">❤️ Like <span>23</span></button>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post-header">
+                    <h2>Jane Smith</h2>
+                    <span>5 hours ago</span>
+                </div>
+                <div class="post-body">
+                    <p>Started learning Python today! Any tips for beginners? 🐍</p>
+                </div>
+                <div class="post-footer">
+                    <button class="like-btn">❤️ Like <span>15</span></button>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post-header">
+                    <h2>Dev Community</h2>
+                    <span>1 day ago</span>
+                </div>
+                <div class="post-body">
+                    <p>Join our upcoming webinar on cloud computing this weekend. Don't miss out! 🌥️</p>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9pH2kg_lxTFh9xitIgw9Y2P91fu3TFiactQ&s" alt="Webinar Image">
+                </div>
+                <div class="post-footer">
+                    <button class="like-btn">❤️ Like <span>45</span></button>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post-header">
+                    <h2>Tech Guru</h2>
+                    <span>3 hours ago</span>
+                </div>
+                <div class="post-body">
+                    <p>Check out this awesome video tutorial on React basics!</p>
+                    <iframe 
+            width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/SqcY0GlETPk" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+                </div>
+                <div class="post-footer">
+                    <button class="like-btn">❤️ Like <span>18</span></button>
+                </div>
+            </div>
+        </div>
+        <div id="profile" class="page" style="display: none;">
+    <h2>Profile</h2>
+    <div class="profile-header">
+        <img id="profilePic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAzBE_P3rPclK8gJnC-y1Mq7kNOvyL8yUHlg&s" alt="Profile Picture" class="profile-pic">
+        <div class="profile-info">
+            <h3 id="username">John Doe</h3>
+            <p id="bio">Passionate about technology and programming. Always learning!</p>
+            <button onclick="editProfile()">Edit Profile</button>
+        </div>
+    </div>
+    <div class="profile-posts">
+        <h3>Your Posts</h3>
+        <div id="userPostsContainer"></div>
+    </div>
+</div>
+
+<style>
+    .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+    .profile-info h3 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    .profile-info p {
+        margin: 0.5rem 0 1rem 0;
+        color: #666;
+    }
+    .profile-posts {
+        margin-top: 2rem;
+    }
+    .profile-posts h3 {
+        margin-bottom: 1rem;
+    }
+    .user-post {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<script>
+    // Mock data for user posts
+    const userPosts = [
+        { id: 1, content: "Excited about learning React!" },
+        { id: 2, content: "Just built my first Python project. Loving it!" },
+        { id: 3, content: "Exploring cloud computing. Any recommendations?" }
+    ];
+
+    // Render user posts
+    function renderUserPosts() {
+        const container = document.getElementById('userPostsContainer');
+        container.innerHTML = '';
+        userPosts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.className = 'user-post';
+            postElement.innerText = post.content;
+            container.appendChild(postElement);
+        });
+    }
+
+    // Edit profile functionality
+    function editProfile() {
+        const newUsername = prompt('Enter your new username:', document.getElementById('username').innerText);
+        const newBio = prompt('Update your bio:', document.getElementById('bio').innerText);
+
+        if (newUsername) {
+            document.getElementById('username').innerText = newUsername;
+        }
+        if (newBio) {
+            document.getElementById('bio').innerText = newBio;
+        }
+    }
+
+    // Call this function when the profile page is loaded
+    function loadProfile() {
+        renderUserPosts();
+    }
+
+    // Example usage: Call loadProfile() when the profile page is displayed
+</script>
+
+        <div id="settings" class="page" style="display: none;">
+    <h2>Settings</h2>
+    <div class="settings-section">
+        <h3>Account Settings</h3>
+        <label>
+            <span>Change Password:</span>
+            <input type="password" id="newPassword" placeholder="Enter new password">
+        </label>
+        <button onclick="updatePassword()">Update Password</button>
+    </div>
+
+    <div class="settings-section">
+        <h3>Preferences</h3>
+        <label>
+            <input type="checkbox" id="darkModeToggle">
+            Enable Dark Mode
+        </label>
+        <label>
+            <input type="checkbox" id="emailNotificationsToggle">
+            Email Notifications
+        </label>
+        <button onclick="savePreferences()">Save Preferences</button>
+    </div>
+
+    <div class="settings-section">
+        <h3>Privacy</h3>
+        <button onclick="deleteAccount()">Delete Account</button>
+    </div>
+</div>
+
+<style>
+    .settings-section {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .settings-section h3 {
+        margin-bottom: 1rem;
+    }
+    .settings-section label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+    }
+    .settings-section label span {
+        flex: 1;
+    }
+    .settings-section input[type="password"],
+    .settings-section input[type="checkbox"] {
+        margin-left: 1rem;
+    }
+    .settings-section button {
+        background: #3b5998;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    .settings-section button:hover {
+        background: #2e467b;
+    }
+</style>
+
+<script>
+    // Mock preferences data
+    const preferences = {
+        darkMode: false,
+        emailNotifications: true,
+    };
+
+    // Load and render settings preferences
+    function loadSettings() {
+        document.getElementById('darkModeToggle').checked = preferences.darkMode;
+        document.getElementById('emailNotificationsToggle').checked = preferences.emailNotifications;
+    }
+
+    // Update password function
+    function updatePassword() {
+        const newPassword = document.getElementById('newPassword').value.trim();
+        if (newPassword) {
+            alert('Password updated successfully!');
+            document.getElementById('newPassword').value = '';
+        } else {
+            alert('Please enter a valid password.');
+        }
+    }
+
+    // Save preferences function
+    function savePreferences() {
+        preferences.darkMode = document.getElementById('darkModeToggle').checked;
+        preferences.emailNotifications = document.getElementById('emailNotificationsToggle').checked;
+        alert('Preferences saved successfully!');
+    }
+
+    // Delete account function
+    function deleteAccount() {
+        if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            alert('Account deleted successfully.');
+            // Redirect or reset data here
+        }
+    }
+
+    // Example usage: Call loadSettings() when the settings page is displayed
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
+        document.getElementById(pageId).style.display = 'block';
+        if (pageId === 'settings') {
+            loadSettings();
+        }
+    }
+</script>
+
+
+    </main>
+    <footer>
+        <p>&copy; 2025 Tech Social. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let posts = [];
+
+        window.onload = function() {
+            const storedPosts = localStorage.getItem('posts');
+            if (storedPosts) {
+                posts = JSON.parse(storedPosts);
+                renderPosts();
+            }
+        };
+
+        function addPost() {
+            const postContent = document.getElementById('postContent').value.trim();
+            const postImageInput = document.getElementById('postImage');
+            let imageData = null;
+
+            if (postImageInput.files && postImageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imageData = event.target.result;
+                    savePost(postContent, imageData);
+                };
+                reader.readAsDataURL(postImageInput.files[0]);
+            } else {
+                savePost(postContent, imageData);
+            }
+        }
+
+        function savePost(content, image) {
+            if (!content && !image) {
+                alert('Post content or image cannot be empty!');
+                return;
+            }
+            posts.push({ content, image, likes: 0 });
+            localStorage.setItem('posts', JSON.stringify(posts));
+            renderPosts();
+            document.getElementById('postContent').value = '';
+            document.getElementById('postImage').value = '';
+        }
+
+        function renderPosts() {
+            const postsContainer = document.getElementById('postsContainer');
+            postsContainer.innerHTML = '';
+            posts.forEach((post, index) => {
+                const postDiv = document.createElement('div');
+                postDiv.className = 'post';
+                postDiv.innerHTML = `
+                    <div class="post-header">
+                        <h2>Post ${index + 1}</h2>
+                        <button onclick="deletePost(${index})">Delete</button>
+                    </div>
+                    <div class="post-body">
+                        ${post.content ? `<p>${post.content}</p>` : ''}
+                        ${post.image ? `<img src="${post.image}" alt="Post Image">` : ''}
+                    </div>
+                    <div class="post-footer">
+                        <button class="like-btn" onclick="likePost(${index})">
+                            ❤️ Like <span>${post.likes}</span>
+                        </button>
+                    </div>
+                `;
+                postsContainer.appendChild(postDiv);
+            });
+        }
+
+        function deletePost(index) {
+            posts.splice(index, 1);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            renderPosts();
+        }
+
+        function likePost(index) {
+            posts[index].likes += 1;
+            localStorage.setItem('posts', JSON.stringify(posts));
+            renderPosts();
+        }
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.display = page.id === pageId ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
